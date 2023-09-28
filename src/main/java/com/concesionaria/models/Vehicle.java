@@ -5,6 +5,7 @@ import java.util.Date;
 import java.util.List;
 import java.util.Objects;
 
+@SuppressWarnings("unused")
 public class Vehicle {
     private Long id;
     private String brand;

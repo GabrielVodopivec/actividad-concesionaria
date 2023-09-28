@@ -1,6 +1,6 @@
 package com.concesionaria.dto.response;
-
-public class VehicleTestDTO {
+@SuppressWarnings("unused")
+public class VehicleBrandModelDTO {
     private String brand;
     private String model;
 

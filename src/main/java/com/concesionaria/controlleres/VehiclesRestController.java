@@ -1,7 +1,7 @@
 package com.concesionaria.controlleres;
 
 import com.concesionaria.dto.response.VehicleDTO;
-import com.concesionaria.dto.response.VehicleTestDTO;
+import com.concesionaria.dto.response.VehicleBrandModelDTO;
 import com.concesionaria.models.Vehicle;
 import com.concesionaria.services.IService;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -18,12 +18,12 @@ public class VehiclesRestController {
 
     IService<Vehicle> vehicleService;
     IService<VehicleDTO> vehicleServiceDTO;
-    IService<VehicleTestDTO> vehicleTestServiceDTO;
+    IService<VehicleBrandModelDTO> vehicleTestServiceDTO;
 
     public VehiclesRestController(
             @Qualifier("vehicleService") IService<Vehicle> vehicleService,
             @Qualifier("vehicleServiceDTO") IService<VehicleDTO> vehicleServiceDTO,
-            @Qualifier("vehicleTestServiceDTO") IService<VehicleTestDTO> vehicleTestServiceDTO
+            @Qualifier("vehicleTestServiceDTO") IService<VehicleBrandModelDTO> vehicleTestServiceDTO
     ) {
         this.vehicleService        = vehicleService;
         this.vehicleServiceDTO     = vehicleServiceDTO;
@@ -40,8 +40,8 @@ public class VehiclesRestController {
         return new ResponseEntity<>(vehicleServiceDTO.findAll(), HttpStatus.OK);
     }
 
-    @GetMapping("/test/dto")
-    public ResponseEntity<List<VehicleTestDTO>> getAllTestVehicles() {
+    @GetMapping("/brand-model/dto")
+    public ResponseEntity<List<VehicleBrandModelDTO>> getAllTestVehicles() {
         return new ResponseEntity<>(vehicleTestServiceDTO.findAll(), HttpStatus.OK);
     }
 
@@ -51,7 +51,7 @@ public class VehiclesRestController {
     }
 
 
-    @GetMapping("/dto/{id}")
+    @GetMapping("/brand-model/dto/{id}")
     public ResponseEntity<Vehicle> findOneDTO(@PathVariable Long id) {
         return new ResponseEntity<>(vehicleService.findOne(id), HttpStatus.OK);
     }

@@ -2,6 +2,7 @@ package com.concesionaria.models;
 
 import java.util.Date;
 
+@SuppressWarnings("unused")
 public class Service {
     private Date date;
     private Integer kilometers;
