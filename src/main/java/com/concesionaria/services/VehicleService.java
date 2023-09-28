@@ -5,6 +5,7 @@ import com.concesionaria.repositories.IRepository;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+
 @Service("vehicleService")
 public class VehicleService implements IService<Vehicle> {
     IRepository<Vehicle> vehicleIRepository;

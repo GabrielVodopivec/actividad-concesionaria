@@ -6,7 +6,6 @@ import java.util.List;
 import java.util.Objects;
 
 public class Vehicle {
-
     private Long id;
     private String brand;
     private String model;

@@ -18,15 +18,15 @@ public class VehiclesRestController {
 
     IService<Vehicle> vehicleService;
     IService<VehicleDTO> vehicleServiceDTO;
-
     IService<VehicleTestDTO> vehicleTestServiceDTO;
+
     public VehiclesRestController(
             @Qualifier("vehicleService") IService<Vehicle> vehicleService,
             @Qualifier("vehicleServiceDTO") IService<VehicleDTO> vehicleServiceDTO,
-            @Qualifier("vehicleTestServiceDTO") IService<VehicleTestDTO> vehicleTestServiceDTO) {
-
-        this.vehicleService    = vehicleService;
-        this.vehicleServiceDTO = vehicleServiceDTO;
+            @Qualifier("vehicleTestServiceDTO") IService<VehicleTestDTO> vehicleTestServiceDTO
+    ) {
+        this.vehicleService        = vehicleService;
+        this.vehicleServiceDTO     = vehicleServiceDTO;
         this.vehicleTestServiceDTO = vehicleTestServiceDTO;
     }
 
