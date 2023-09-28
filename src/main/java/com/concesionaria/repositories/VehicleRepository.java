@@ -11,9 +11,8 @@ import java.util.List;
 @Repository
 public class VehicleRepository implements IRepository<Vehicle> {
     private final List<Vehicle> vehicles = new ArrayList<>();
-    @Override
-    public List<Vehicle> findAll() {
 
+    public VehicleRepository() {
         Service service = new Service();
         service.setDate(new Date());
         service.setKilometers(150000);
@@ -44,6 +43,10 @@ public class VehicleRepository implements IRepository<Vehicle> {
 
         vehicles.add(v);
         vehicles.add(v2);
+    }
+
+    @Override
+    public List<Vehicle> findAll() {
         return vehicles;
     }
 
