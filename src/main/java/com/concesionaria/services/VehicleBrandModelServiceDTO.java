@@ -3,6 +3,8 @@ package com.concesionaria.services;
 import com.concesionaria.dto.response.VehicleBrandModelDTO;
 import com.concesionaria.models.Vehicle;
 import com.concesionaria.repositories.IRepository;
+import com.fasterxml.jackson.databind.DeserializationFeature;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -17,15 +19,15 @@ public class VehicleBrandModelServiceDTO implements IService<VehicleBrandModelDT
 
     @Override
     public List<VehicleBrandModelDTO> findAll() {
-        return vehicleRepository.findAll()
-                                .stream()
-                                .map(vehicle -> {
-                                    VehicleBrandModelDTO vehicleBrandModelDTO = new VehicleBrandModelDTO();
-                                    vehicleBrandModelDTO.setBrand(vehicle.getBrand());
-                                    vehicleBrandModelDTO.setModel(vehicle.getModel());
-                                    return vehicleBrandModelDTO;
-                                })
-                                .toList();
+        ObjectMapper mapper = new ObjectMapper();
+        mapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
+        return vehicleRepository
+                       .findAll()
+                       .stream()
+                       .map(vehicle -> (
+                               mapper.convertValue(vehicle, VehicleBrandModelDTO.class)
+                       ))
+                       .toList();
     }
 
     @Override
