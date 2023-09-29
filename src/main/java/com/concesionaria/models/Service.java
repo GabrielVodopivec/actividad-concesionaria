@@ -1,19 +1,20 @@
 package com.concesionaria.models;
 
+import java.time.LocalDate;
 import java.util.Date;
 
 @SuppressWarnings("unused")
 public class Service {
-    private Date date;
+    private LocalDate date;
     private Integer kilometers;
 
     private String descriptions;
 
-    public Date getDate() {
+    public LocalDate getDate() {
         return date;
     }
 
-    public void setDate(Date date) {
+    public void setDate(LocalDate date) {
         this.date = date;
     }
 
@@ -32,4 +33,6 @@ public class Service {
     public void setDescriptions(String descriptions) {
         this.descriptions = descriptions;
     }
+
+
 }

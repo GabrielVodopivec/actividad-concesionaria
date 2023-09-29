@@ -2,6 +2,7 @@ package com.concesionaria.dto.response;
 
 import com.concesionaria.models.Service;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -11,12 +12,11 @@ public class VehicleDTO {
     private Long id;
     private String brand;
     private String model;
-    private Date manufacturingDate;
+    private LocalDate manufacturingDate;
     private Integer numberOfKilometers;
     private Integer doors;
     private Integer price;
     private  String currency;
-
     private List<Service> services;
 
     public VehicleDTO() {
@@ -47,11 +47,11 @@ public class VehicleDTO {
         this.model = model;
     }
 
-    public Date getManufacturingDate() {
+    public LocalDate getManufacturingDate() {
         return manufacturingDate;
     }
 
-    public void setManufacturingDate(Date manufacturingDate) {
+    public void setManufacturingDate(LocalDate manufacturingDate) {
         this.manufacturingDate = manufacturingDate;
     }
 

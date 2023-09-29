@@ -4,6 +4,7 @@ import com.concesionaria.models.Vehicle;
 import com.concesionaria.repositories.IRepository;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDate;
 import java.util.List;
 
 @Service("vehicleService")
@@ -22,5 +23,15 @@ public class VehicleService implements IService<Vehicle> {
     @Override
     public Vehicle findOne(Long id) {
         return vehicleIRepository.findById(id);
+    }
+
+    @Override
+    public Vehicle createOrUpdate(Vehicle vehicle) {
+        return null;
+    }
+
+    @Override
+    public List<Vehicle> findByDate(LocalDate initialDate, LocalDate finalDate) {
+        return null;
     }
 }

@@ -1,7 +1,10 @@
 package com.concesionaria.models;
 
+
+import org.springframework.format.annotation.DateTimeFormat;
+
+import java.time.LocalDate;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 import java.util.Objects;
 
@@ -10,7 +13,7 @@ public class Vehicle {
     private Long id;
     private String brand;
     private String model;
-    private Date manufacturingDate;
+    private LocalDate manufacturingDate;
     private Integer numberOfKilometers;
     private Integer doors;
     private Integer price;
@@ -23,7 +26,7 @@ public class Vehicle {
     }
 
     public Vehicle(
-            Long id, String brand, String model, Date manufacturingDate, Integer numberOfKilometers, Integer doors,
+            Long id, String brand, String model, LocalDate manufacturingDate, Integer numberOfKilometers, Integer doors,
             Integer price, String currency
     ) {
         this();
@@ -61,11 +64,11 @@ public class Vehicle {
         this.model = model;
     }
 
-    public Date getManufacturingDate() {
+    public LocalDate getManufacturingDate() {
         return manufacturingDate;
     }
 
-    public void setManufacturingDate(Date manufacturingDate) {
+    public void setManufacturingDate(LocalDate manufacturingDate) {
         this.manufacturingDate = manufacturingDate;
     }
 

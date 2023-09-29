@@ -9,6 +9,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
 
 @RestController
@@ -23,7 +25,7 @@ public class VehiclesRestController {
     public VehiclesRestController(
             @Qualifier("vehicleService") IService<Vehicle> vehicleService,
             @Qualifier("vehicleServiceDTO") IService<VehicleDTO> vehicleServiceDTO,
-            @Qualifier("vehicleTestServiceDTO") IService<VehicleBrandModelDTO> vehicleTestServiceDTO
+            @Qualifier("vehicleBrandModelServiceDTO") IService<VehicleBrandModelDTO> vehicleTestServiceDTO
     ) {
         this.vehicleService        = vehicleService;
         this.vehicleServiceDTO     = vehicleServiceDTO;
@@ -50,9 +52,23 @@ public class VehiclesRestController {
         return vehicleService.findOne(id);
     }
 
-
     @GetMapping("/brand-model/dto/{id}")
     public ResponseEntity<Vehicle> findOneDTO(@PathVariable Long id) {
         return new ResponseEntity<>(vehicleService.findOne(id), HttpStatus.OK);
+    }
+
+    @GetMapping("/dto/dates")
+    public ResponseEntity<List<VehicleDTO>> getVehiclesByDate(
+            @RequestParam String from, @RequestParam String to
+    ) {
+        DateTimeFormatter dtf = DateTimeFormatter.ofPattern("dd-MM-yyyy");
+        LocalDate initialDate = LocalDate.parse(from, dtf);
+        LocalDate finalDate = LocalDate.parse(to, dtf);
+        return new ResponseEntity<>(vehicleServiceDTO.findByDate(initialDate, finalDate), HttpStatus.OK);
+    }
+
+    @RequestMapping(value = "/", method = {RequestMethod.POST, RequestMethod.PUT})
+    public ResponseEntity<VehicleDTO> createOne(@RequestBody VehicleDTO vehicle) {
+        return new ResponseEntity<>(vehicleServiceDTO.createOrUpdate(vehicle), HttpStatus.CREATED);
     }
 }
