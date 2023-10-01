@@ -1,18 +1,20 @@
 package com.concesionaria.models;
 
+import java.time.LocalDate;
 import java.util.Date;
+import java.util.Locale;
 
 public class Service {
-    private Date date;
+    private LocalDate date;
     private Integer kilometers;
 
     private String descriptions;
 
-    public Date getDate() {
+    public LocalDate getDate() {
         return date;
     }
 
-    public void setDate(Date date) {
+    public void setDate(LocalDate date) {
         this.date = date;
     }
 

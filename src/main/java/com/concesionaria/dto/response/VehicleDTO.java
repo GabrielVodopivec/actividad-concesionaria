@@ -1,4 +1,6 @@
-package com.concesionaria.models;
+package com.concesionaria.dto.response;
+
+import com.concesionaria.models.Service;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
@@ -6,7 +8,7 @@ import java.util.Date;
 import java.util.List;
 import java.util.Objects;
 
-public class Vehicle {
+public class VehicleDTO {
     private Long id;
     private String brand;
     private String model;
@@ -17,8 +19,9 @@ public class Vehicle {
     private String currency;
     private Integer countOfOwners;
     private List<Service> services;
-    public Vehicle() {
-        services = new ArrayList<>();
+
+    public VehicleDTO() {
+        this.services = new ArrayList<>();
     }
 
     public Long getId() {
@@ -109,8 +112,8 @@ public class Vehicle {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        Vehicle vehicle = (Vehicle) o;
-        return Objects.equals(id, vehicle.id);
+        VehicleDTO that = (VehicleDTO) o;
+        return Objects.equals(id, that.id);
     }
 
 }
