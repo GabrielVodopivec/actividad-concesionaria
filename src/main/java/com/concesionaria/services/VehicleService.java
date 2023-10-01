@@ -14,10 +14,9 @@ import org.springframework.stereotype.Service;
 import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
-import java.util.function.Consumer;
 
 @Service("vehicleService")
-public class VehicleService implements IService<BasicVehicleDTO, VehicleDTO> {
+public class VehicleService implements IService<BasicVehicleDTO> {
     IRepository<Vehicle> vehicleIRepository;
 
     public VehicleService(IRepository<Vehicle> vehicleIRepository) {
@@ -37,7 +36,7 @@ public class VehicleService implements IService<BasicVehicleDTO, VehicleDTO> {
     }
 
     @Override
-    public VehicleDTO findOne(Long id) {
+    public BasicVehicleDTO findOne(Long id) {
         ObjectMapper mapper = new ObjectMapper();
         mapper.registerModule(new JavaTimeModule());
         Optional<Vehicle> vehicle = vehicleIRepository.findById(id);
@@ -46,7 +45,7 @@ public class VehicleService implements IService<BasicVehicleDTO, VehicleDTO> {
     }
 
     @Override
-    public VehicleDTO createOrUpdate(VehicleDTO vehicleDTO) {
+    public BasicVehicleDTO createOrUpdate(BasicVehicleDTO vehicleDTO) {
         ObjectMapper mapper = new ObjectMapper();
         mapper.registerModule(new JavaTimeModule());
 

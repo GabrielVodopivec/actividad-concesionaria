@@ -3,10 +3,10 @@ package com.concesionaria.services;
 import java.time.LocalDate;
 import java.util.List;
 
-public interface IService<T, V> {
+public interface IService<T> {
     List<T> findAll();
-    V findOne(Long id);
-    V createOrUpdate(V v);
+    T findOne(Long id);
+    T createOrUpdate(T t);
     List<T> findByDate(LocalDate since, LocalDate to);
     List<T> filterByPrice(Integer since, Integer to, String currency);
 }

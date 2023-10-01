@@ -8,7 +8,7 @@ import java.util.Date;
 import java.util.List;
 import java.util.Objects;
 
-public class VehicleDTO {
+public class VehicleDTO extends BasicVehicleDTO {
     private Long id;
     private String brand;
     private String model;

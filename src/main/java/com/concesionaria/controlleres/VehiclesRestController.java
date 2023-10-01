@@ -19,9 +19,9 @@ import java.util.List;
 )
 public class VehiclesRestController {
 
-    IService<BasicVehicleDTO, VehicleDTO> vehicleService;
+    IService<BasicVehicleDTO> vehicleService;
 
-    public VehiclesRestController(@Qualifier("vehicleService") IService<BasicVehicleDTO, VehicleDTO> vehicleService) {
+    public VehiclesRestController(@Qualifier("vehicleService") IService<BasicVehicleDTO> vehicleService) {
         this.vehicleService = vehicleService;
     }
 
@@ -31,7 +31,7 @@ public class VehiclesRestController {
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<VehicleDTO> findOne(@PathVariable Long id) {
+    public ResponseEntity<BasicVehicleDTO> findOne(@PathVariable Long id) {
         return new ResponseEntity<>(vehicleService.findOne(id), HttpStatus.OK);
     }
 
@@ -52,7 +52,7 @@ public class VehiclesRestController {
     }
 
     @RequestMapping(value = "/", method = {RequestMethod.POST, RequestMethod.PUT})
-    public ResponseEntity<VehicleDTO> createOrUpdate(@RequestBody VehicleDTO vehicle) {
+    public ResponseEntity<BasicVehicleDTO> createOrUpdate(@RequestBody VehicleDTO vehicle) {
         return new ResponseEntity<>(vehicleService.createOrUpdate(vehicle), HttpStatus.CREATED);
     }
 
