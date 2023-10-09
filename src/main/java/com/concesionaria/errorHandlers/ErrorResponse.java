@@ -1,5 +1,6 @@
 package com.concesionaria.errorHandlers;
 
+@SuppressWarnings("unused")
 public class ErrorResponse {
     private int status;
     private String message;

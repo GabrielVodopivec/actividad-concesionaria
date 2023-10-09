@@ -1,11 +1,11 @@
 package com.concesionaria.errorHandlers;
 
-import com.concesionaria.exceptions.DateParseException;
 import com.concesionaria.exceptions.NoSuchVehicleException;
-import com.concesionaria.exceptions.VehicleNotFoundException;
+import com.concesionaria.exceptions.NotFoundException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.http.converter.HttpMessageNotReadableException;
+import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.MissingServletRequestParameterException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
@@ -14,7 +14,8 @@ import org.springframework.web.method.annotation.MethodArgumentTypeMismatchExcep
 import java.time.format.DateTimeParseException;
 
 @ControllerAdvice
-public class Hanlder {
+@SuppressWarnings("unused")
+public class HandlerException {
 
     @ExceptionHandler(MethodArgumentTypeMismatchException.class)
     public ResponseEntity<ErrorResponse> typeMismatchException(Exception e) {
@@ -25,12 +26,12 @@ public class Hanlder {
         return new ResponseEntity<>(response, HttpStatus.BAD_REQUEST);
     }
 
-    @ExceptionHandler(VehicleNotFoundException.class)
-    public ResponseEntity<ErrorResponse> vehicleNotFound(Exception e) {
+    @ExceptionHandler(NotFoundException.class)
+    public ResponseEntity<ErrorResponse> vehicleNotFound(NotFoundException nfe) {
         ErrorResponse response = new ErrorResponse();
         response.setStatus(HttpStatus.NOT_FOUND.value());
-        response.setMessage(e.getMessage());
-        response.setCause("No existe ningún vehiculo con el Id suministrado en la consulta");
+        response.setMessage(nfe.getMessage());
+        response.setCause(nfe.getDetail());
 
         return new ResponseEntity<>(response, HttpStatus.NOT_FOUND);
     }
@@ -78,4 +79,17 @@ public class Hanlder {
 
         return new ResponseEntity<>(response, HttpStatus.BAD_REQUEST);
     }
+
+    @ExceptionHandler(MethodArgumentNotValidException.class)
+    public ResponseEntity<ErrorResponse> methodArgumentNotValidException(Exception e) {
+        ErrorResponse response = new ErrorResponse();
+
+        response.setStatus(HttpStatus.BAD_REQUEST.value());
+        response.setMessage("Recibimos alguna de las fechas en formato incorrecto. Revisar la información enviada");
+        response.setCause("No fue posible convertir el string en una fecha.");
+
+        return new ResponseEntity<>(response, HttpStatus.BAD_REQUEST);
+    }
+
+
 }

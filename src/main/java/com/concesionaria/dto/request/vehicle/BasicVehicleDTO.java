@@ -1,8 +1,8 @@
-package com.concesionaria.dto.response;
+package com.concesionaria.dto.request.vehicle;
 
 import java.time.LocalDate;
-import java.util.Date;
 
+@SuppressWarnings("unused")
 public class BasicVehicleDTO {
     private Long id;
     private String brand;

@@ -2,10 +2,10 @@ package com.concesionaria.models;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 import java.util.Objects;
 
+@SuppressWarnings("unused")
 public class Vehicle {
     private Long id;
     private String brand;
@@ -17,6 +17,7 @@ public class Vehicle {
     private String currency;
     private Integer countOfOwners;
     private List<Service> services;
+
     public Vehicle() {
         services = new ArrayList<>();
     }
@@ -103,6 +104,7 @@ public class Vehicle {
 
     public void addService(Service service) {
         this.services.add(service);
+        service.setVehicleID(this.id);
     }
 
     @Override

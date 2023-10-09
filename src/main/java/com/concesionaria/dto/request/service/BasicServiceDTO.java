@@ -1,25 +1,13 @@
-package com.concesionaria.models;
+package com.concesionaria.dto.request.service;
 
 import java.time.LocalDate;
-import java.util.Objects;
 
 @SuppressWarnings("unused")
-public class Service {
+public class BasicServiceDTO {
     private Long id;
     private LocalDate date;
     private Integer kilometers;
     private String descriptions;
-    private Long vehicleID;
-
-    public Service() {
-    }
-
-    public Service(Long id, LocalDate date, Integer kilometers, String descriptions) {
-        this.id           = id;
-        this.date         = date;
-        this.kilometers   = kilometers;
-        this.descriptions = descriptions;
-    }
 
     public Long getId() {
         return id;
@@ -52,20 +40,4 @@ public class Service {
     public void setDescriptions(String descriptions) {
         this.descriptions = descriptions;
     }
-
-    public Long getVehicleID() {
-        return vehicleID;
-    }
-
-    public void setVehicleID(Long vehicleID) {
-        this.vehicleID = vehicleID;
-    }
-
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (!(o instanceof Service service)) return false;
-        return Objects.equals(id, service.id);
-    }
-
 }

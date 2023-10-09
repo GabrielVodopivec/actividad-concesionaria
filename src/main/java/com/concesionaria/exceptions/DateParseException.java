@@ -1,6 +1,7 @@
 package com.concesionaria.exceptions;
 
-public class DateParseException extends RuntimeException{
+@SuppressWarnings("unused")
+public class DateParseException extends RuntimeException {
     public DateParseException(String message) {
         super(message);
     }

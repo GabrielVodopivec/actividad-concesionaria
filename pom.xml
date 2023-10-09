@@ -10,7 +10,7 @@
     </parent>
     <groupId>com.concesionaria</groupId>
     <artifactId>concesionaria</artifactId>
-    <version>0.0.1-SNAPSHOT</version>
+    <version>1.0.1</version>
     <name>concesionaria</name>
     <description>concesionaria</description>
     <properties>
@@ -36,6 +36,7 @@
     </dependencies>
 
     <build>
+        <finalName>${project.artifactId}</finalName>
         <plugins>
             <plugin>
                 <groupId>org.springframework.boot</groupId>
