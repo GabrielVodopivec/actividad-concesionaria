@@ -2,6 +2,7 @@ package com.concesionaria.errorHandlers;
 
 import com.concesionaria.exceptions.NoSuchVehicleException;
 import com.concesionaria.exceptions.NotFoundException;
+import com.concesionaria.exceptions.TiempoDeEsperaExcedidoException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.http.converter.HttpMessageNotReadableException;
@@ -89,6 +90,17 @@ public class HandlerException {
         response.setCause("No fue posible convertir el string en una fecha.");
 
         return new ResponseEntity<>(response, HttpStatus.BAD_REQUEST);
+    }
+
+    @ExceptionHandler(TiempoDeEsperaExcedidoException.class)
+    public ResponseEntity<ErrorResponse> tiempoDeEsperaExcedidoException(Exception e) {
+        ErrorResponse response = new ErrorResponse();
+
+        response.setStatus(HttpStatus.REQUEST_TIMEOUT.value());
+        response.setMessage(e.getMessage());
+        response.setCause("El repositorio tardó una banda en responder.");
+
+        return new ResponseEntity<>(response, HttpStatus.REQUEST_TIMEOUT);
     }
 
 

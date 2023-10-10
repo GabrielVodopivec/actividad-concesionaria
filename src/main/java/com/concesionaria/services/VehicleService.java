@@ -4,6 +4,7 @@ import com.concesionaria.dto.request.vehicle.BasicVehicleDTO;
 import com.concesionaria.dto.request.vehicle.VehicleDTO;
 import com.concesionaria.exceptions.NoSuchVehicleException;
 import com.concesionaria.exceptions.NotFoundException;
+import com.concesionaria.exceptions.TiempoDeEsperaExcedidoException;
 import com.concesionaria.models.Service;
 import com.concesionaria.models.Vehicle;
 import com.concesionaria.repositories.IRepository;
@@ -16,6 +17,8 @@ import java.time.LocalDate;
 import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
+import java.util.concurrent.TimeUnit;
+import java.util.concurrent.atomic.AtomicReference;
 import java.util.function.Function;
 import java.util.function.Predicate;
 
@@ -36,11 +39,54 @@ public class VehicleService implements IService<BasicVehicleDTO> {
 
     @Override
     public List<BasicVehicleDTO> findAll() {
-        return vehicleIRepository
-                       .findAll()
-                       .stream()
-                       .map(vehicle -> mapper.convertValue(vehicle, BasicVehicleDTO.class))
-                       .toList();
+//        -------------------Simulación de falla por tiempo excedido-----------------
+        AtomicReference<List<BasicVehicleDTO>> resultReference = new AtomicReference<>();
+
+//        Creo un hilo para realizar pedirle la lista al repositorio.
+        Thread thread = getThread(resultReference);
+
+        try {
+//            Espero un máximo de 3 segundos para unir el hilo creado con el
+//            actual
+            thread.join(TimeUnit.SECONDS.toMillis(3));
+        } catch (InterruptedException e) {
+            Thread.currentThread().interrupt();
+        }
+
+        List<BasicVehicleDTO> result = resultReference.get();
+
+//        Como el repositorio tiene el hilo dormido por 5 segundos el resultdo es null
+//        y se lanza la excepción.
+        if (result == null) {
+            throw new TiempoDeEsperaExcedidoException("Tiempo de espera excedido");
+        }
+
+        return result;
+//        -----------------------------------------------------------------------------
+
+//        Implementación normal
+//        Comentar la implementación de arriba para obtener la Lista inicial;
+
+//        return vehicleIRepository
+//                       .findAll()
+//                       .stream()
+//                       .map(vehicle -> mapper.convertValue(vehicle, BasicVehicleDTO.class))
+//                       .toList();
+    }
+
+    private Thread getThread(AtomicReference<List<BasicVehicleDTO>> resultReference) {
+        Thread thread = new Thread(() -> {
+            List<BasicVehicleDTO> result = vehicleIRepository
+                                                   .findAll()
+                                                   .stream()
+                                                   .map(vehicle -> mapper.convertValue(vehicle, BasicVehicleDTO.class))
+                                                   .toList();
+
+            resultReference.set(result);
+        });
+
+        thread.start();
+        return thread;
     }
 
     @Override

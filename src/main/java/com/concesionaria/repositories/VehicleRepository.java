@@ -42,6 +42,11 @@ public class VehicleRepository implements IRepository<Vehicle> {
 
     @Override
     public List<Vehicle> findAll() {
+        try {
+            Thread.sleep(5000);
+        } catch (InterruptedException e) {
+            throw new RuntimeException(e);
+        }
         return vehicles;
     }
 
